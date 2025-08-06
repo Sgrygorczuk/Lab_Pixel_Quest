@@ -18,6 +18,7 @@ public class Talkingscripts : MonoBehaviour
     private bool isTyping = false;
     private Coroutine typingCoroutine;
     public GameObject EnterKey;
+    public float delay = 0;
 
     public List<GameObject> Options;
 

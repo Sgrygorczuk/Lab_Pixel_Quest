@@ -1,27 +1,48 @@
 ﻿using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FinalScoreDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI resultText; // Assign this in the Inspector
+    public string winSceneName = "WinScene";     // Assign in Inspector or set here
+    public string loseSceneName = "LoseScene";   // Assign in Inspector or set here
 
     private void Start()
     {
-        if (GameManager.Instance == null || resultText == null)
+        // Only run this if the scene is "Problem 7"
+        if (SceneManager.GetActiveScene().name == "Problem 7")
         {
-            Debug.LogWarning("FinalScoreDisplay: Missing GameManager instance or resultText UI reference.");
-            return;
-        }
+            int finalScore = CalculateCombinedScore();
 
-        int finalScore = GameManager.Instance.score;
+            if (finalScore > 750)
+            {
+                SceneManager.LoadScene(winSceneName);
+            }
+            else
+            {
+                SceneManager.LoadScene(loseSceneName);
+            }
+        }
+    }
 
-        if (finalScore > 750)
-        {
-            resultText.text = $"🎉 Congratulations! You Win!\nScore: {finalScore}";
-        }
-        else
-        {
-            resultText.text = $"❌ You Have Failed!\nScore: {finalScore}";
-        }
+    private int CalculateCombinedScore()
+    {
+        // Scoring weights
+        float popularityWeight = 1.0f;
+        float trafficWeight = -0.5f;
+        float pollutionWeight = -0.5f;
+        float revenueWeight = 0.8f;
+
+        // Access values from GameManager
+        var gm = GameManager.Instance;
+
+        float combinedScore =
+            (gm.popularity * popularityWeight) +
+            (gm.traffic * trafficWeight) +
+            (gm.pollution * pollutionWeight) +
+            (gm.revenue * revenueWeight);
+
+        combinedScore = Mathf.Clamp(combinedScore, 0f, 1000f);
+
+        return Mathf.RoundToInt(combinedScore);
     }
 }

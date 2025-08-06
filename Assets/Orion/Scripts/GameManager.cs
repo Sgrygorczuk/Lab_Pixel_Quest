@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public float traffic = 250f;
     public float pollution = 250f;
     public float revenue = 0f;
-    public string nextProblemLevel = "Problem_1";
+    public string nextProblemLevel = "Problem 1";
 
     // Time
     public int month = 7;
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         else if (score <= 200)
             return "You're doing horribly. People are calling for your resignation.";
         else
-            return "You�re doing okay, but the pressure�s mounting.";
+            return "You're doing okay, but the pressure's mounting.";
     }
 
     public string GetBarPerformanceFeedback()
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            return "You\'re holding things together, but there\'s a long way to go.";
+            return "You're holding things together, but there\'s a long way to go.";
         }
     }
 
